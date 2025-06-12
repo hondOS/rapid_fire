@@ -2,52 +2,56 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rapid Fire Game 2</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: "Arial", sans-serif;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #bfdbfe, #6366f1);
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       min-height: 100vh;
-      background: linear-gradient(to bottom right, #c3dafe, #a5b4fc);
     }
     .card {
       background: white;
+      max-width: 400px;
+      width: 90%;
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 90%;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       font-size: 1.25rem;
-      font-weight: bold;
+      font-weight: 600;
+      text-align: center;
+      user-select: none;
     }
     button {
       margin-top: 2rem;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
+      padding: 0.75rem 1.75rem;
+      font-size: 1.125rem;
       border: none;
-      border-radius: 1rem;
-      background-color: #6366f1;
+      border-radius: 1.5rem;
+      background-color: #4f46e5;
       color: white;
       cursor: pointer;
-      transition: background 0.3s;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.6);
+      transition: background-color 0.3s ease;
+      user-select: none;
     }
     button:hover {
-      background-color: #4f46e5;
+      background-color: #4338ca;
     }
   </style>
 </head>
 <body>
   <div class="card" id="question">Нажми кнопку, чтобы начать!</div>
-  <button onclick="nextQuestion()">Следующий вопрос</button>
+  <button id="nextBtn">Следующий вопрос</button>
 
   <script>
-    const questions = [
+    const allQuestions = [
       "О чём ты мечтал в детстве?",
       "Какой звук тебе нравится больше всего?",
       "Если бы ты был животным — каким?",
@@ -73,13 +77,25 @@
       "Что ты делаешь, когда никто не ждёт результата?",
       "Самая спонтанная вещь, которую ты делал?",
       "Любимый звук в природе?",
-      "На что ты всегда обращаешь внимание в людях?"
+      "На что ты всегда обращаешь внимание в людях?",
+      // Добавленные вопросы:
+      "Какое твое любимое детское воспоминание?",
+      "Что тебя может развеселить в любую минуту?",
+      "Если бы ты мог изменить один момент в жизни, что бы это было?",
+      "Какой навык ты хочешь освоить в ближайшее время?",
+      "Какой самый необычный комплимент ты получал?",
+      "Если бы у тебя была машина времени, куда бы ты отправился?",
+      "Что для тебя означает счастье?",
+      "Какое блюдо ты готовишь лучше всего?",
+      "Какой фильм или сериал ты можешь пересматривать бесконечно?",
+      "Что ты делаешь, чтобы расслабиться после трудного дня?"
     ];
 
-    let shuffled = shuffle([...questions]);
+    let shuffledQuestions = [];
     let index = 0;
 
-    function shuffle(array) {
+    function shuffle(arr) {
+      const array = [...arr];
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -88,14 +104,20 @@
     }
 
     function nextQuestion() {
-      const card = document.getElementById("question");
-      if (index >= shuffled.length) {
-        shuffled = shuffle([...questions]);
-        index = 0;
+      const questionDiv = document.getElementById("question");
+      if (index === 0) {
+        shuffledQuestions = shuffle(allQuestions);
       }
-      card.textContent = shuffled[index];
-      index++;
+      if (index < shuffledQuestions.length) {
+        questionDiv.textContent = shuffledQuestions[index];
+        index++;
+      } else {
+        questionDiv.textContent = "Вопросы закончились 🎉";
+        document.getElementById("nextBtn").disabled = true;
+      }
     }
+
+    document.getElementById("nextBtn").addEventListener("click", nextQuestion);
   </script>
 </body>
 </html>
