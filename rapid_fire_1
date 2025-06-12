@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rapid Fire: Лёгкие и весёлые</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #fff7b2, #ffbbcc);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+  }
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 400px;
+    width: 90vw;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  button {
+    margin-top: 30px;
+    background-color: #ff4b82;
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 14px 40px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 75, 130, 0.6);
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #e5386f;
+  }
+</style>
+</head>
+<body>
+<div class="card" id="question">Загрузка...</div>
+<button id="nextBtn">Следующий вопрос</button>
+
+<script>
+  const questions = [
+    "Любимый эмодзи?",
+    "Кофе или чай?",
+    "Пицца или паста?",
+    "Как тебя зовут друзья?",
+    "Самое странное, что ты ел?",
+    "Любимый мем?",
+    "Что на тебе прямо сейчас?",
+    "Какой цвет на вкус как ты?",
+    "Следующий отпуск — где?",
+    "Чем бы ты занялся, если бы не было интернета?",
+    "Что сегодня будет смешным?",
+    "Что ты делаешь первым делом утром?",
+    "Шершавый или гладкий?",
+    "Needle или haystack?",
+    "Случайная привычка, которую ты любишь?",
+    "Самый странный комплимент, который ты получал?",
+    "Что бы ты никогда не надел?",
+    "Если бы ты был напитком — каким?",
+    "Любимый запах?",
+    "Что в тебе вызывает гордость?",
+    "Какой твой любимый способ расслабиться?",
+    "Что тебя всегда развеселит?",
+    "Если бы у тебя был питомец любой фантастический зверь, кто бы это был?",
+    "Какой звук тебе нравится больше всего?",
+    "Любимая настольная игра?",
+    "Что ты умеешь делать лучше всех?",
+    "Что ты бы сделал, если бы выиграл миллион?",
+    "Какой твой любимый праздник?",
+    "Какую книгу ты можешь читать снова и снова?",
+    "Куда бы ты отправился в путешествие мечты?"
+  ];
+
+  let shuffled = [];
+  let index = 0;
+
+  function shuffle(array) {
+    let arr = array.slice();
+    for(let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function showQuestion() {
+    if(index >= shuffled.length) {
+      shuffled = shuffle(questions);
+      index = 0;
+    }
+    document.getElementById('question').textContent = shuffled[index];
+    index++;
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', showQuestion);
+
+  // Инициализация
+  shuffled = shuffle(questions);
+  showQuestion();
+</script>
+</body>
+</html>
