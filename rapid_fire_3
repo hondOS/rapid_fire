@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapid Fire Game 3</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Arial", sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #bbf7d0, #86efac);
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 90%;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 1rem;
+      background-color: #22c55e;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #16a34a;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="question">Нажми кнопку, чтобы начать!</div>
+  <button onclick="nextQuestion()">Следующий вопрос</button>
+
+  <script>
+    const questions = [
+      "Самое странное место, где ты засыпал?",
+      "Какую суперспособность ты бы хотел только на один день?",
+      "Что бы ты хотел спросить у своего будущего себя?",
+      "Какой твой внутренний саундтрек?",
+      "Кем бы ты был, если бы не стал собой?",
+      "Что ты считаешь своим мини-достижением сегодня?",
+      "Какая мелочь может сделать твой день?",
+      "Ты больше любишь начинать или заканчивать?",
+      "Если бы твоя жизнь была сериалом — какой жанр?",
+      "Какая вещь в тебе делает тебя уникальным?",
+      "Какой навык ты приобрёл случайно?",
+      "Самое смешное, что с тобой случалось на работе?",
+      "Какую привычку ты бы ввёл как обязательную для всех?",
+      "Что бы ты сказал себе 10-летнему?",
+      "Какая песня могла бы быть гимном твоего утра?",
+      "Какой фильм ты бы хотел пережить в реальности?",
+      "Что ты втайне хотел бы попробовать, но стесняешься?",
+      "Если бы можно было отменить один тренд — что бы это было?",
+      "Какую фразу ты бы хотел стереть из памяти человечества?",
+      "Ты бы предпочёл говорить в рифму или в загадках?",
+      "Что ты ценишь в других, но не умеешь сам?",
+      "Твоё guilty pleasure из мира ТВ или YouTube?",
+      "Какой праздник ты бы выдумал и сделал официальным?",
+      "Что бы ты сделал, если бы сутки был невидимым?",
+      "Ты больше про «думать» или «делать»?"
+    ];
+
+    let shuffled = shuffle([...questions]);
+    let index = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function nextQuestion() {
+      const card = document.getElementById("question");
+      if (index >= shuffled.length) {
+        shuffled = shuffle([...questions]);
+        index = 0;
+      }
+      card.textContent = shuffled[index];
+      index++;
+    }
+  </script>
+</body>
+</html>
