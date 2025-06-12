@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapid Fire Game 2</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Arial", sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #c3dafe, #a5b4fc);
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 90%;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 1rem;
+      background-color: #6366f1;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #4f46e5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="question">Нажми кнопку, чтобы начать!</div>
+  <button onclick="nextQuestion()">Следующий вопрос</button>
+
+  <script>
+    const questions = [
+      "О чём ты мечтал в детстве?",
+      "Какой звук тебе нравится больше всего?",
+      "Если бы ты был животным — каким?",
+      "Любимая погода?",
+      "Какой твой внутренний возраст?",
+      "Что бы ты хотел делать чаще?",
+      "Ты — сова или жаворонок?",
+      "Какое слово ты бы добавил в словарь?",
+      "Что ты умеешь делать, чему никто тебя не учил?",
+      "Какой цвет тебе не идёт, но ты всё равно его носишь?",
+      "Где тебе лучше всего думается?",
+      "Что ты никогда не устанешь делать?",
+      "С кем из исторических личностей ты бы хотел поговорить?",
+      "Самая странная еда, которую ты любишь?",
+      "Какая вещь в доме делает тебя счастливым?",
+      "Где ты был бы прямо сейчас, если бы мог?",
+      "Какой вопрос ты бы задал себе?",
+      "Какой фильм всегда поднимает тебе настроение?",
+      "Как ты справляешься со скукой?",
+      "Что ты хранишь в сумке, но редко используешь?",
+      "Какой запах вызывает у тебя ностальгию?",
+      "Ты интроверт или экстраверт?",
+      "Что ты делаешь, когда никто не ждёт результата?",
+      "Самая спонтанная вещь, которую ты делал?",
+      "Любимый звук в природе?",
+      "На что ты всегда обращаешь внимание в людях?"
+    ];
+
+    let shuffled = shuffle([...questions]);
+    let index = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function nextQuestion() {
+      const card = document.getElementById("question");
+      if (index >= shuffled.length) {
+        shuffled = shuffle([...questions]);
+        index = 0;
+      }
+      card.textContent = shuffled[index];
+      index++;
+    }
+  </script>
+</body>
+</html>
