@@ -89,8 +89,8 @@
     function nextQuestion() {
       const card = document.getElementById("question");
       if (index >= shuffled.length) {
-        shuffled = shuffle([...questions]);
-        index = 0;
+    card.textContent = "Вопросы закончились 🎉";
+    return;
       }
       card.textContent = shuffled[index];
       index++;
